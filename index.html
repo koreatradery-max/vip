@@ -1250,6 +1250,9 @@ $("#btnNoticeClear").addEventListener("click", async ()=>{
 $("#btnChangeCode").addEventListener("click", async ()=>{
   const c=$("#newCode").value.trim();
   if(c.length<4){ toast("코드는 4자 이상으로 정하세요."); return; }
+  /* 변경 전 2단계 확인 */
+  if(!confirm(`입장 코드를 "${c}" 로 변경할까요?`)) return;
+  if(!confirm("정말 변경할까요? 확인을 누르는 즉시 이전 코드는 무효가 됩니다.")) return;
   settings.memberHash=await sha256(c); settings.updatedAt=Date.now();
   await store.setSettings(settings);
   $("#newCode").value="";
@@ -1258,6 +1261,9 @@ $("#btnChangeCode").addEventListener("click", async ()=>{
 $("#btnChangeAdmin").addEventListener("click", async ()=>{
   const c=$("#newAdminPw").value.trim();
   if(c.length<6){ toast("관리자 비밀번호는 6자 이상으로 정하세요."); return; }
+  /* 변경 전 2단계 확인 */
+  if(!confirm("관리자 비밀번호를 변경할까요?")) return;
+  if(!confirm("정말 변경할까요? 새 비밀번호를 잊어버리면 복구할 수 없습니다.")) return;
   settings.adminHash=await sha256(c); settings.updatedAt=Date.now();
   await store.setSettings(settings);
   $("#newAdminPw").value="";
