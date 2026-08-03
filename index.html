@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>VIP 브리핑 룸 · 고려대 재학생 트레이더</title>
+<title>VIP 공부 자료실 · 고려대 재학생 트레이더</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -70,8 +70,6 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .month-strip{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;color:var(--muted);padding:14px 2px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--up);animation:breathe 2.4s ease-in-out infinite}
 
-/* ---------- 지수 티커 테이프 ---------- */
-#ticker{height:46px;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2px 0 12px;background:var(--surface)}
 
 /* ---------- 관리자 공지 배너 ---------- */
 #notice{display:none;align-items:center;gap:12px;background:rgba(233,196,106,.09);border:1px solid rgba(233,196,106,.4);border-radius:12px;padding:11px 15px;margin:0 0 16px;font-size:14px}
@@ -257,6 +255,10 @@ a.chap:hover{border-color:var(--up)}
 .foot-disc{font-size:12px;color:#6E7891;line-height:1.75}
 .foot-disc li{margin-left:16px;margin-bottom:3px}
 .foot-contact{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.disc-more{display:none;margin-top:4px}
+.disc-more.open{display:block}
+.disc-toggle{color:var(--gold);font-size:12px;text-decoration:underline;margin-left:4px}
+.top-brand{cursor:pointer}
 .foot-contact a{color:var(--gold)}
 .foot-contact a:hover{text-decoration:underline}
 
@@ -287,8 +289,8 @@ a.chap:hover{border-color:var(--up)}
 <!-- ================= 입장 게이트 ================= -->
 <div id="gate">
   <div class="gate-card">
-    <div class="brand-eyebrow">KOREA UNIV. TRADER</div>
-    <h1><span class="vip">VIP</span> 브리핑 룸</h1>
+    <div class="brand-eyebrow">고려대 재학생 트레이더</div>
+    <h1><span class="vip">VIP</span> 공부 자료실</h1>
     <p class="gate-sub">이달의 입장 코드를 입력하세요</p>
     <div class="candles" aria-hidden="true">
       <div class="candle u" style="height:22px"></div>
@@ -312,8 +314,8 @@ a.chap:hover{border-color:var(--up)}
 <div id="app">
   <header class="top">
     <div class="top-brand">
-      <span class="eb">KOREA UNIV. TRADER</span>
-      <span class="nm"><span class="vip">VIP</span> 브리핑 룸</span>
+      <span class="eb">고려대 재학생 트레이더</span>
+      <span class="nm"><span class="vip">VIP</span> 공부 자료실</span>
     </div>
     <div class="top-actions">
       <button class="btn-ghost" id="btnAdmin">관리자</button>
@@ -324,13 +326,6 @@ a.chap:hover{border-color:var(--up)}
   <div class="month-strip">
     <span class="dot"></span>
     <span id="monthLabel"></span>
-  </div>
-
-  <!-- 지수 티커 테이프 (TradingView) -->
-  <div id="ticker">
-    <div class="tradingview-widget-container" id="tickerWidget" style="height:100%;width:100%">
-      <div class="tradingview-widget-container__widget"></div>
-    </div>
   </div>
 
   <!-- 관리자 공지 배너 -->
@@ -359,8 +354,6 @@ a.chap:hover{border-color:var(--up)}
     <button class="f-chip" data-f="week">이번 주</button>
     <button class="f-chip" data-f="국내주식">국내주식</button>
     <button class="f-chip" data-f="미국주식">미국주식</button>
-    <button class="f-chip" data-f="코인">코인</button>
-    <button class="f-chip" data-f="반도체">반도체</button>
   </div>
   <p class="result-line" id="resultLine"></p>
 
@@ -447,12 +440,10 @@ a.chap:hover{border-color:var(--up)}
 
       <div class="field">
         <label for="wTags">태그 (쉼표로 구분 — 검색 필터에 걸립니다)</label>
-        <input id="wTags" placeholder="예) 국내주식, 반도체">
+        <input id="wTags" placeholder="예) 국내주식, 미국주식">
         <div class="tagquick" id="tagQuick">
           <button class="tq" data-tag="국내주식">국내주식</button>
           <button class="tq" data-tag="미국주식">미국주식</button>
-          <button class="tq" data-tag="코인">코인</button>
-          <button class="tq" data-tag="반도체">반도체</button>
         </div>
       </div>
 
@@ -504,14 +495,16 @@ a.chap:hover{border-color:var(--up)}
   <footer class="site-foot">
     <div class="foot-title">DISCLAIMER</div>
     <ul class="foot-disc">
-      <li>본 페이지에서 제공하는 모든 콘텐츠(라이브 요약, 브리핑, PDF 자료 등)는 투자 정보 제공 및 교육을 목적으로 하며, 특정 종목·자산의 매수 또는 매도를 추천하는 것이 아닙니다.</li>
+      <li>본 페이지의 모든 콘텐츠는 정보 제공 및 교육 목적이며, 특정 종목·자산의 매수 또는 매도 추천이 아닙니다. <button class="disc-toggle" id="discToggle">전체 보기 ▾</button></li>
+    </ul>
+    <ul class="foot-disc disc-more" id="discMore">
       <li>모든 투자의 최종 판단과 그에 따른 책임은 투자자 본인에게 있으며, 본 콘텐츠를 근거로 한 투자 결과에 대해 운영자는 어떠한 법적 책임도 지지 않습니다.</li>
       <li>과거의 수익률 및 분석 결과가 미래의 수익을 보장하지 않습니다.</li>
       <li>본 페이지의 콘텐츠는 회원 전용 자료로, 운영자의 동의 없는 무단 복제·배포·공유(캡처, 재업로드 포함)를 금합니다.</li>
     </ul>
     <div class="foot-contact">
-      <span>KOREA UNIV. TRADER · VIP 브리핑 룸</span>
-      <span>문의: <a href="mailto:본인아이디@korea.ac.kr">본인아이디@korea.ac.kr</a></span>
+      <span>고려대 재학생 트레이더 · VIP 공부 자료실</span>
+      <span>문의: <a href="mailto:korea.treadr.y@gmail.com">korea.treadr.y@gmail.com</a></span>
     </div>
   </footer>
 </div>
@@ -698,31 +691,10 @@ async function enterApp(){
   const now=new Date();
   $("#monthLabel").textContent = now.getFullYear()+"."+String(now.getMonth()+1).padStart(2,"0")
     +" 코드 적용 중"+(useFirebase?"":" · 데모 모드(이 브라우저에만 저장됨)");
-  mountTicker();
   renderNotice();
   await loadPosts();
 }
 
-/* ---------- 지수 티커 테이프 (TradingView) ---------- */
-function mountTicker(){
-  const c=$("#tickerWidget");
-  if(c.dataset.done) return; c.dataset.done="1";
-  const s=document.createElement("script");
-  s.src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
-  s.async=true;
-  s.innerHTML=JSON.stringify({
-    symbols:[
-      {proName:"CME_MINI:NQ1!", title:"나스닥 선물"},
-      {proName:"CME_MINI:ES1!", title:"S&P 선물"},
-      {proName:"KRX:KOSPI", title:"코스피"},
-      {proName:"FX_IDC:USDKRW", title:"달러/원"},
-      {proName:"BINANCE:BTCUSDT", title:"비트코인"}
-    ],
-    showSymbolLogo:true, isTransparent:true,
-    displayMode:"regular", colorTheme:"dark", locale:"kr"
-  });
-  c.appendChild(s);
-}
 
 /* ---------- 관리자 공지 배너 ---------- */
 function renderNotice(){
@@ -1290,6 +1262,16 @@ $("#btnChangeAdmin").addEventListener("click", async ()=>{
   await store.setSettings(settings);
   $("#newAdminPw").value="";
   toast("관리자 비밀번호를 변경했습니다.");
+});
+
+/* ---------- 면책 더보기 / 상단 로고 홈 ---------- */
+$("#discToggle").addEventListener("click",()=>{
+  const m=$("#discMore");
+  m.classList.toggle("open");
+  $("#discToggle").textContent=m.classList.contains("open")?"접기 ▴":"전체 보기 ▾";
+});
+document.querySelector(".top-brand").addEventListener("click",()=>{
+  window.scrollTo({top:0,behavior:"smooth"});
 });
 
 /* ---------- 세션 유지 / 나가기 ---------- */
